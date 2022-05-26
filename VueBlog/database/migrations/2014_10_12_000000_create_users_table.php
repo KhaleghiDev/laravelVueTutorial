@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateUsersTable extends Migration
 {
@@ -16,9 +17,18 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('lastname');
+            $table->string('username');
+            $table->string('phone')->nullable();
+            $table->boolean('phone_verified_at')->default(false);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean("is_admin")->default(false);
+            $table->string('avatar')->default("\img\avatar.png");
             $table->string('password');
+            $table->text('bio')->nullable();
+            $table->enum('status',['registered','Accepted','Special','Block'])->default("registered") ;
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
