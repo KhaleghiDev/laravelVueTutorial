@@ -82,12 +82,13 @@ class LifeController extends Controller
      */
     public function update(Request $request, life $life)
     {
+        // dd($life);
         $validated = $request->validate([
             'title' => 'required',
             'color' => 'required',
         ]);
-        // dd(auth()->id());
-        life::update([
+
+        $life->update([
             'title' => $request->title,
             'color' =>  $request->color,
         ]);

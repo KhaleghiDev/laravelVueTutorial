@@ -28,7 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('life',[LifeController::class ,'store'])->name('admin.life.store');
     Route::get('life/{life}',[LifeController::class ,'show'])->name('admin.life.show');
     Route::get('life/{life}/edit',[LifeController::class ,'edit'])->name('admin.life.edit');
-    Route::put('life/{life}/update',[LifeController::class ,'update'])->name('admin.life.update');
+    Route::post('life/{life}/update',[LifeController::class ,'update'])->name('admin.life.update');
     Route::delete('life/{life}/delete',[LifeController::class ,'destroy'])->name('admin.life.destroy');
 
 

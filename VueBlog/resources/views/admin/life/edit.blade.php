@@ -16,8 +16,10 @@
 
                     <div class="row">
 
-                        <form method="POST" action="{{ route('admin.life.store') }}">
+                        <form method="POST" action="{{ route('admin.life.update',$life->id) }}">
                             @csrf
+                    
+
 
                             <div class="row mb-3">
                                 <label for="title" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
