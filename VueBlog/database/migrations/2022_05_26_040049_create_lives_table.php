@@ -15,6 +15,12 @@ class CreateLivesTable extends Migration
     {
         Schema::create('lives', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('color');
+            $table->boolean('active')->default(true);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

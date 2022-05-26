@@ -14,7 +14,8 @@ class LifeController extends Controller
      */
     public function index()
     {
-        //
+        $lifes = life::all();
+        return view("admin.life.index", compact('lifes'));
     }
 
     /**
@@ -24,7 +25,7 @@ class LifeController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.life.create");
     }
 
     /**
@@ -35,7 +36,19 @@ class LifeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'color' => 'required',
+        ]);
+        // dd(auth()->id());
+        life::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'color' =>  $request->color,
+        ]);
+
+        return redirect()->route('admin.life.index')
+            ->with('success', 'life created successfully.');
     }
 
     /**
@@ -46,7 +59,7 @@ class LifeController extends Controller
      */
     public function show(life $life)
     {
-        //
+        return view("admin.life.show", compact("life"));
     }
 
     /**
@@ -57,7 +70,7 @@ class LifeController extends Controller
      */
     public function edit(life $life)
     {
-        //
+        return view('admin.life.edit', compact('life'));
     }
 
     /**
@@ -69,7 +82,18 @@ class LifeController extends Controller
      */
     public function update(Request $request, life $life)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'color' => 'required',
+        ]);
+        // dd(auth()->id());
+        life::update([
+            'title' => $request->title,
+            'color' =>  $request->color,
+        ]);
+
+        return redirect()->route('admin.life.index')
+            ->with('success', 'life created successfully.');
     }
 
     /**
@@ -80,6 +104,8 @@ class LifeController extends Controller
      */
     public function destroy(life $life)
     {
-        //
+        $life->delete();
+        return redirect()->route('admin.life.index')
+            ->with('success', 'life created successfully.');
     }
 }
