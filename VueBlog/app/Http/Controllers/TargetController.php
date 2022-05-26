@@ -14,7 +14,8 @@ class TargetController extends Controller
      */
     public function index()
     {
-        //
+        $targets=Target::all();
+       return view("admin.target.index",compact('targets'));
     }
 
     /**
@@ -24,7 +25,7 @@ class TargetController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.target.create");
     }
 
     /**
@@ -35,7 +36,18 @@ class TargetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'time' => 'required',
+        ]);
+        // dd(auth()->id());
+        Target::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'time' =>  $request->color,
+        ]);
+        return redirect()->route('admin.target.index')
+        ->with('success', 'target created successfully.');
     }
 
     /**
@@ -46,7 +58,7 @@ class TargetController extends Controller
      */
     public function show(Target $target)
     {
-        //
+        return view("admin.target.show", compact("target"));
     }
 
     /**
@@ -57,7 +69,7 @@ class TargetController extends Controller
      */
     public function edit(Target $target)
     {
-        //
+        return view('admin.target.edit', compact('target'));
     }
 
     /**
@@ -69,7 +81,18 @@ class TargetController extends Controller
      */
     public function update(Request $request, Target $target)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'time' => 'required',
+        ]);
+        // dd(auth()->id());
+        Target::update([
+            'title' => $request->title,
+            'time' =>  $request->color,
+        ]);
+
+        return redirect()->route('admin.target.index')
+            ->with('success', 'life created successfully.');
     }
 
     /**
@@ -80,6 +103,8 @@ class TargetController extends Controller
      */
     public function destroy(Target $target)
     {
-        //
+        $target->delete();
+        return redirect()->route('admin.target.index')
+            ->with('success', 'target created successfully.');
     }
 }
