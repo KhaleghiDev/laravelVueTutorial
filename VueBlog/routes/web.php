@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LifeController;
 use App\Http\Controllers\TargetController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,4 +41,13 @@ Route::controller(TargetController::class)->middleware("auth")->prefix("target")
     Route::get('/{target}/edit',  'edit')->name('admin.target.edit');
     Route::post('/{target}/update', 'update')->name('admin.target.update');
     Route::delete('/{target}/delete',  'destroy')->name('admin.target.destroy');
+});
+Route::controller(TaskController::class)->middleware("auth")->prefix("task")->group(function () {
+    Route::get('/', 'index')->name('admin.task.index');
+    Route::get('/create', 'create')->name('admin.task.create');
+    Route::post('/', 'store')->name('admin.task.store');
+    Route::get('/{task}',  'show')->name('admin.task.show');
+    Route::get('/{task}/edit',  'edit')->name('admin.task.edit');
+    Route::post('/{task}/update', 'update')->name('admin.task.update');
+    Route::delete('/{task}/delete',  'destroy')->name('admin.task.destroy');
 });

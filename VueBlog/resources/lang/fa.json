@@ -712,5 +712,8 @@
     "Åland Islands": "جزایر الند",
     "Title":"عنوان",
     "Time":"زمان",
-    "Target":"هدف"
+    "Target":"هدف",
+    "Time_Start":"زمان شروع",
+    "Time_End":"زمان پایان",
+    "Namber":"اولویت"
 }

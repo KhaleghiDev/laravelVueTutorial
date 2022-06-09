@@ -14,7 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks=Task::all();
+        return view("admin.task.index",compact('tasks'));
     }
 
     /**
@@ -24,7 +25,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.task.create");
     }
 
     /**
@@ -35,7 +36,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'time_start' => 'required',
+            'time_end' => 'required',
+            'namber'=>'required'
+        ]);
+        // dd(auth()->id());
+        Task::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'time_start' =>  $request->time_start,
+            'time_end' =>  $request->time_end,
+            'namber'=>$request->namber,
+        ]);
+        return redirect()->route('admin.task.index')
+        ->with('success', 'task created successfully.');
     }
 
     /**
@@ -46,7 +62,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return view("admin.task.show", compact("task"));
     }
 
     /**
@@ -57,7 +73,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return view("admin.task.edit", compact("task"));
     }
 
     /**
@@ -69,7 +85,22 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'time_start' => 'required',
+            'time_end' => 'required',
+            'namber'=>'required'
+        ]);
+        // dd(auth()->id());
+        Task::update([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'time_start' =>  $request->time_start,
+            'time_end' =>  $request->time_end,
+            'namber'=>$request->namber,
+        ]);
+        return redirect()->route('admin.task.index')
+        ->with('success', 'task update successfully.');
     }
 
     /**
@@ -80,6 +111,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect()->route('admin.task.index')
+        ->with('success', 'task deleate successfully.');
     }
 }
